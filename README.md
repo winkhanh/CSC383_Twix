@@ -2,7 +2,7 @@
 
 **Name of your app** is an android app that allows a user to view his Twitter timeline. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **4** hours spent in total
+Time spent: **6** hours spent in total
 
 ## User Stories
 
@@ -17,10 +17,10 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] User can view more tweets as they scroll with infinite pagination
-- [ ] Improve the user interface and theme the app to feel "twitter branded"
-- [ ] Links in tweets are clickable and will launch the web browser
-- [ ] User can tap a tweet to display a "detailed" view of that tweet
-- [ ] User can see embedded image media within the tweet detail view
+- [x] Improve the user interface and theme the app to feel "twitter branded"
+- [x] Links in tweets are clickable and will launch the web browser
+- [x] User can tap a tweet to display a "detailed" view of that tweet
+- [x] User can see embedded image media within the tweet detail view
 - [ ] User can watch embedded video within the tweet
 - [ ] User can open the twitter app offline and see last loaded tweets
 - [ ] On the Twitter timeline, leverage the CoordinatorLayout to apply scrolling behavior that hides / shows the toolbar.
@@ -33,7 +33,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./Walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./Walkthrough2.gif' title='Video Walkthrough2' width='' alt='Video Walkthrough2' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

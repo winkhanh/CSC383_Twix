@@ -1,16 +1,21 @@
 package com.codepath.apps.restclienttemplate.models
 
+import android.util.Log
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
+import org.parceler.Parcel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
-class Tweet {
-    var content: String = ""
-    var id: Number = 0
-    var time : String = ""
+@Parcel
+public class Tweet constructor(jsonObj: JSONObject) {
+    constructor():this(JSONObject())
+    public var content: String = ""
+    public var id: Number = 0
+    public var photos: MutableList<String> = mutableListOf<String>()
+    public var time : String = ""
         get(){
             var time = ""
             val twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"
@@ -44,7 +49,7 @@ class Tweet {
             }
             return time
         }
-    var user : User = User()
+    public var user : User = User()
     companion object{
         fun fromJson(jsonObj: JSONObject) : Tweet{
             var tweet : Tweet = Tweet()
@@ -52,6 +57,17 @@ class Tweet {
             tweet.time = jsonObj.getString("created_at")
             tweet.user = User.fromJson(jsonObj.getJSONObject("user"))
             tweet.id = jsonObj.getLong("id")
+            try{
+                val entities = jsonObj.getJSONObject("entities")
+                val media = entities?.getJSONArray("media")?:JSONArray()
+                for (i in 0 until (media.length()-1)){
+                    if (media.getJSONObject(i).getString("type") == "photo")
+                        tweet.photos.add(media.getJSONObject(i).getString("media_url_https"))
+                }
+            }catch (e: JSONException){
+                Log.d("Tweet", "Cant get media")
+            }
+
             return tweet
         }
         fun fromJsonArray(jsonArr: JSONArray) : MutableList<Tweet>{

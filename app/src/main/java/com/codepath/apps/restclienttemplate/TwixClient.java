@@ -59,6 +59,7 @@ public class TwixClient extends OAuthBaseClient {
 		params.put("count", 25);
 		params.put("since_id", 1);
 		params.put("max_id", maxId-1);
+		params.put("include_entities", true);
 		client.get(apiUrl, params, handler);
 	}
 

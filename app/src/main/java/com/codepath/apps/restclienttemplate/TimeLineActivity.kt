@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,10 +19,17 @@ class TimeLineActivity : AppCompatActivity() {
     lateinit var swipeContainer : SwipeRefreshLayout
     private lateinit var client : TwixClient
     lateinit var adapater : TweetAdapter
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
         client = TwixClient(this)
+
+        setSupportActionBar(findViewById(R.id.attoolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val rvTweets : RecyclerView = findViewById(R.id.rvTweets)
 
@@ -63,6 +71,8 @@ class TimeLineActivity : AppCompatActivity() {
             }
 
             override fun onSuccess(statusCode: Int, headers: okhttp3.Headers?, json: JSON?) {
+                Log.d("Main Activity", json.toString())
+
                 try {
                     tweets.clear()
                     val result: JSONArray = json?.jsonArray ?: JSONArray()
@@ -70,7 +80,9 @@ class TimeLineActivity : AppCompatActivity() {
                     adapater.notifyDataSetChanged()
                     swipeContainer.isRefreshing = false
                 }catch(e: JSONException) {
-                    Log.d("Main Activity","hit json exception")
+                    Log.d("Main Activity","hitttt json exception")
+                    adapater.notifyDataSetChanged()
+
 
                 }
             }
@@ -89,11 +101,13 @@ class TimeLineActivity : AppCompatActivity() {
             }
 
             override fun onSuccess(statusCode: Int, headers: okhttp3.Headers?, json: JSON?) {
+
                 try {
                     val result: JSONArray = json?.jsonArray ?: JSONArray()
                     tweets.addAll(Tweet.fromJsonArray(result))
                     adapater.notifyDataSetChanged()
                 }catch(e: JSONException) {
+                    Log.d("Main Activity", json.toString())
                     Log.d("Main Activity","hit json exception")
 
                 }

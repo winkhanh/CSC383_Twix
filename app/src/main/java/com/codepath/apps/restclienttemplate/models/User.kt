@@ -1,11 +1,15 @@
 package com.codepath.apps.restclienttemplate.models
 
 import org.json.JSONObject
+import org.parceler.Parcel
 
-class User {
-    var tag: String = ""
-    var name : String = ""
-    var imageAvatarUrl : String =""
+@Parcel
+public class User constructor(jsonObj: JSONObject)  {
+    constructor():this(JSONObject())
+
+    public var tag: String = ""
+    public var name : String = ""
+    public var imageAvatarUrl : String =""
     companion object{
         fun  fromJson(jsonObj: JSONObject) : User{
             var user: User = User()

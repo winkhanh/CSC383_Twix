@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-kapt'
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
@@ -57,4 +58,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'org.parceler:parceler-api:1.1.12'
+    kapt 'org.parceler:parceler:1.1.12'
 }

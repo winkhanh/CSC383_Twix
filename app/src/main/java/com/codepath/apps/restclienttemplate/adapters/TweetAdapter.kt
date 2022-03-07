@@ -28,7 +28,7 @@ class TweetAdapter(val context: Context,val tweets: List<Tweet>): RecyclerView.A
             tvContent.text = tweet.content
             tvName.text = tweet.user.name
             tvTag.text = "@"+tweet.user.tag
-            tvTime.text = tweet.time
+            tvTime.text = tweet.getTime()
             Glide.with(context).load(tweet.user.imageAvatarUrl).into(ivAvatar)
             rlContainer.setOnClickListener {
                 val i : Intent = Intent(context, DetailActivity::class.java).apply{

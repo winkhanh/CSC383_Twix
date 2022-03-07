@@ -12,44 +12,44 @@ import kotlin.collections.ArrayList
 @Parcel
 public class Tweet constructor(jsonObj: JSONObject) {
     constructor():this(JSONObject())
-    public var content: String = ""
-    public var id: Number = 0
-    public var photos: MutableList<String> = mutableListOf<String>()
-    public var time : String = ""
-        get(){
-            var time = ""
-            val twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"
-            val format = SimpleDateFormat(twitterFormat, Locale.US)
-            format.isLenient=true
-            try{
-                val diff = (System.currentTimeMillis() - format.parse(field).time) / 1000
-                if (diff < 5)
-                    time = "Just now"
-                else if (diff < 60)
-                    time = String.format(Locale.ENGLISH, "%ds",diff)
-                else if (diff < 60 * 60)
-                    time = String.format(Locale.ENGLISH, "%dm", diff / 60)
-                else if (diff < 60 * 60 * 24)
-                    time = String.format(Locale.ENGLISH, "%dh", diff / (60 * 60))
-                else if (diff < 60 * 60 * 24 * 30)
-                    time = String.format(Locale.ENGLISH, "%dd", diff / (60 * 60 * 24))
-                else {
-                    val now = Calendar.getInstance();
-                    val then = Calendar.getInstance();
+    @JvmField public var content: String = ""
+    @JvmField public var id: Number = 0
+    @JvmField public var photos: MutableList<String> = mutableListOf<String>()
+    @JvmField var time : String = ""
+    public fun getTime():String{
+        var xtime = ""
+        val twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"
+        val format = SimpleDateFormat(twitterFormat, Locale.US)
+        format.isLenient=true
+        try{
+            val diff = (System.currentTimeMillis() - format.parse(time).time) / 1000
+            if (diff < 5)
+                xtime = "Just now"
+            else if (diff < 60)
+                xtime = String.format(Locale.ENGLISH, "%ds",diff)
+            else if (diff < 60 * 60)
+                xtime = String.format(Locale.ENGLISH, "%dm", diff / 60)
+            else if (diff < 60 * 60 * 24)
+                xtime = String.format(Locale.ENGLISH, "%dh", diff / (60 * 60))
+            else if (diff < 60 * 60 * 24 * 30)
+                xtime = String.format(Locale.ENGLISH, "%dd", diff / (60 * 60 * 24))
+            else {
+                val now = Calendar.getInstance();
+                val then = Calendar.getInstance();
 
-                    then.time = format.parse(field)
-                    if (now.get(Calendar.YEAR) == then.get(Calendar.YEAR)) {
-                        time = (then.get(Calendar.DAY_OF_MONTH)).toString() + " " + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
-                    } else {
-                        time = (then.get(Calendar.DAY_OF_MONTH)).toString() + " " + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " + (then.get(Calendar.YEAR) - 2000).toString();
-                    }
+                then.time = format.parse(time)
+                if (now.get(Calendar.YEAR) == then.get(Calendar.YEAR)) {
+                    time = (then.get(Calendar.DAY_OF_MONTH)).toString() + " " + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US)
+                } else {
+                    time = (then.get(Calendar.DAY_OF_MONTH)).toString() + " " + then.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " + (then.get(Calendar.YEAR) - 2000).toString();
                 }
-            }catch(e: ParseException){
-                e.printStackTrace()
             }
-            return time
+        }catch(e: ParseException){
+            e.printStackTrace()
         }
-    public var user : User = User()
+        return xtime
+    }
+    @JvmField public var user : User = User()
     companion object{
         fun fromJson(jsonObj: JSONObject) : Tweet{
             var tweet : Tweet = Tweet()
